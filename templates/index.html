@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedAI | Precision Diagnostic Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/4a3b60fc57.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #3b2d7d, #0f172a);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass top-0 left-0">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div
+                    class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i class="fas fa-stethoscope text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold font-montserrat tracking-tight">Med<span
+                        class="text-indigo-500">AI</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-400">
+                <a href="#features" class="hover:text-indigo-400 transition-colors">Features</a>
+                <a href="#analysis" class="hover:text-indigo-400 transition-colors text-indigo-100">AI Analysis</a>
+                <a href="https://groq.com" target="_blank" class="hover:text-indigo-400 transition-colors">Powered by
+                    Groq</a>
+            </div>
+            <a href="#analysis"
+                class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-full transition-all btn-glow">Get
+                Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center pt-20 hero-gradient">
+        <div class="absolute inset-0 opacity-20 pointer-events-none"
+            style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="animate-fade-in">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                    </span>
+                    NEXT-GEN MEDICAL INTELLIGENCE
+                </div>
+                <h1
+                    class="text-5xl md:text-7xl font-bold leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                    Precision Medical AI Analysis
+                </h1>
+                <p class="text-lg text-slate-400 mb-10 max-w-lg leading-relaxed">
+                    Upload medical imaging data and get near-instant contextual insights powered by Groq's
+                    high-performance multimodal inference engines.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#analysis"
+                        class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all btn-glow text-center">
+                        Explore Analysis
+                    </a>
+                    <a href="#features"
+                        class="px-8 py-4 glass hover:bg-white/10 text-white font-bold rounded-xl transition-all text-center">
+                        View Demo
+                    </a>
+                </div>
+            </div>
+            <div class="relative animate-fade-in" style="animation-delay: 0.3s">
+                <div class="absolute -inset-4 bg-indigo-500/20 blur-3xl rounded-full"></div>
+                <img src="/static/hero.png" alt="Medical AI Hero"
+                    class="relative rounded-3xl shadow-2xl border border-white/10 w-full transform -rotate-2 hover:rotate-0 transition-transform duration-700">
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-slate-950">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Unmatched Diagnostic Speed</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Leveraging the world's fastest inference technology to
+                    provide real-time visual assistance for medical professionals.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 glass rounded-2xl card-hover">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-blue-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Ultra-Low Latency</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Response times under 500ms for text and under 2s
+                        for multimodal imaging analysis.</p>
+                </div>
+                <div class="p-8 glass rounded-2xl card-hover">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-microchip text-purple-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Multimodal LLMs</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Integrated with Llama-3-Vision and LLaVA for
+                        comparative diagnostic accuracy.</p>
+                </div>
+                <div class="p-8 glass rounded-2xl card-hover">
+                    <div class="w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-indigo-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Secure Analysis</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Client-side data sanitization and secure base64
+                        transmission protocols.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Section -->
+    <section id="analysis" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-indigo-600/5 blur-[120px] rounded-full -translate-y-1/2"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <div class="glass p-1 rounded-2xl mb-12 flex">
+                    <div
+                        class="flex-1 text-center py-3 bg-indigo-600 rounded-xl text-sm font-bold shadow-lg shadow-indigo-600/20">
+                        Analysis Portal</div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <!-- Upload Component -->
+                    <div class="glass p-8 rounded-3xl relative overflow-hidden group">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-3xl -mr-16 -mt-16 group-hover:bg-indigo-500/20 transition-all">
+                        </div>
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                            <i class="fas fa-cloud-upload-alt text-indigo-500"></i> Upload Data
+                        </h2>
+
+                        <div id="drop-zone"
+                            class="border-2 border-dashed border-slate-700 hover:border-indigo-500 transition-all rounded-2xl p-8 text-center cursor-pointer mb-6 group">
+                            <i class="fas fa-image text-4xl text-slate-600 group-hover:text-indigo-400 mb-4 block"></i>
+                            <p class="text-slate-400 text-sm mb-2">Drag & Drop or <span
+                                    class="text-indigo-400 font-semibold">Browse</span></p>
+                            <p class="text-slate-600 text-xs">Supports: JPG, PNG, DICOM (Converted)</p>
+                            <input type="file" id="image-upload" accept="image/*" class="hidden" />
+                        </div>
+
+                        <div id="image-container" class="hidden mb-6 relative group">
+                            <div
+                                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-xl z-20">
+                                <button onclick="resetUpload()"
+                                    class="p-3 bg-red-500/90 rounded-full hover:scale-110 transition-transform"><i
+                                        class="fas fa-trash text-white"></i></button>
+                            </div>
+                            <img id="display-image" src="" alt="Vitals Preview"
+                                class="w-full h-48 object-cover rounded-xl border border-slate-700">
+                        </div>
+                    </div>
+
+                    <!-- Query Component -->
+                    <div class="glass p-8 rounded-3xl">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                            <i class="fas fa-comment-medical text-indigo-500"></i> Query Engine
+                        </h2>
+                        <textarea id="query-input" rows="5"
+                            class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl p-4 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none mb-6 text-slate-200"
+                            placeholder="Enter clinical inquiry regarding the visual data..."></textarea>
+
+                        <button id="submit-query"
+                            class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl transition-all btn-glow flex items-center justify-center gap-3">
+                            <span id="btn-text">Initiate Diagnostic AI</span>
+                            <div id="loading-spinner" class="hidden"><i class="fas fa-spinner fa-spin"></i></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Response Engine -->
+                <div id="results-area" class="space-y-6 hidden">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="h-px flex-1 bg-slate-800"></div>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Analysis Results</span>
+                        <div class="h-px flex-1 bg-slate-800"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1">
+                        <div
+                            class="glass p-10 rounded-3xl border-l-[6px] border-l-indigo-600 shadow-2xl shadow-indigo-500/5">
+                            <div class="flex items-center justify-between mb-8 pb-6 border-b border-slate-800">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 bg-indigo-600/20 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-brain text-indigo-500"></i>
+                                    </div>
+                                    <div>
+                                        <h3
+                                            class="text-indigo-400 font-bold font-montserrat tracking-widest text-sm uppercase">
+                                            AI DIAGNOSTIC ANALYSIS</h3>
+                                        <p class="text-[10px] text-slate-500 font-medium">POWERED BY LLAMA 3.2 90B
+                                            VISION
+                                        </p>
+                                    </div>
+                                </div>
+                                <span
+                                    class="text-[10px] px-3 py-1 bg-indigo-500/10 rounded-full uppercase font-bold text-indigo-500 tracking-tighter shadow-sm">Verified
+                                    Analysis</span>
+                            </div>
+                            <div id="response-llama"
+                                class="text-base leading-relaxed text-slate-300 markdown-content prose prose-invert max-w-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Container -->
+                <div id="error-container"
+                    class="hidden mt-8 p-4 bg-red-500/20 border border-red-500/40 text-red-400 rounded-2xl text-center text-sm font-medium">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> <span id="error-text"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 glass border-t-0 mt-24">
+        <div class="container mx-auto px-6 text-center text-slate-500 text-xs">
+            <p class="mb-4 tracking-widest uppercase">&copy; 2026 MedAI Research Labs. Built with Groq & FastAPI.</p>
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="#" class="hover:text-indigo-400 transition-colors">Documentation</a>
+                <a href="#" class="hover:text-indigo-400 transition-colors">API Keys</a>
+                <a href="#" class="hover:text-indigo-400 transition-colors">Privacy</a>
+            </div>
+            <p class="max-w-sm mx-auto italic opacity-50">Disclaimer: This is an AI research tool. Always consult a
+                certified medical professional for diagnosis.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dropZone = document.getElementById('drop-zone');
+            const imageUpload = document.getElementById('image-upload');
+            const displayImage = document.getElementById('display-image');
+            const imageContainer = document.getElementById('image-container');
+            const queryInput = document.getElementById('query-input');
+            const submitQuery = document.getElementById('submit-query');
+            const btnText = document.getElementById('btn-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const resultsArea = document.getElementById('results-area');
+            const responseLlama = document.getElementById('response-llama');
+            const responseLlava = document.getElementById('response-llava');
+            const errorContainer = document.getElementById('error-container');
+
+            // Drop zone interactions
+            if (dropZone) {
+                dropZone.addEventListener('click', () => imageUpload.click());
+                dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-indigo-500'); });
+                dropZone.addEventListener('dragleave', () => dropZone.classList.remove('border-indigo-500'));
+                dropZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropZone.classList.remove('border-indigo-500');
+                    const file = e.dataTransfer.files[0];
+                    handleFile(file);
+                });
+            }
+
+            imageUpload.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+            function handleFile(file) {
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        displayImage.src = e.target.result;
+                        imageContainer.classList.remove('hidden');
+                        dropZone.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            window.resetUpload = () => {
+                imageUpload.value = '';
+                imageContainer.classList.add('hidden');
+                dropZone.classList.remove('hidden');
+                resultsArea.classList.add('hidden');
+            };
+
+            submitQuery.addEventListener('click', async () => {
+                const image = imageUpload.files[0];
+                const query = queryInput.value.trim();
+
+                if (!image || !query) {
+                    showError('Please provide both vital imaging and a query.');
+                    return;
+                }
+
+                try {
+                    setLoading(true);
+                    errorContainer.classList.add('hidden');
+
+                    const formData = new FormData();
+                    formData.append('image', image);
+                    formData.append('query', query);
+
+                    const response = await fetch('/upload_and_query', { method: 'POST', body: formData });
+                    const result = await response.json();
+
+                    if (!response.ok) throw new Error(result.detail || 'Analysis Engine Failure');
+
+                    responseLlama.innerHTML = marked.parse(result.llama || 'No context returned.');
+
+                    resultsArea.classList.remove('hidden');
+                    window.scrollTo({ top: resultsArea.offsetTop - 120, behavior: 'smooth' });
+
+                } catch (err) {
+                    showError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            });
+
+            function setLoading(loading) {
+                submitQuery.disabled = loading;
+                btnText.textContent = loading ? 'Processing Context...' : 'Initiate Diagnostic AI';
+                loadingSpinner.classList.toggle('hidden', !loading);
+            }
+
+            function showError(msg) {
+                document.getElementById('error-text').textContent = msg;
+                errorContainer.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
