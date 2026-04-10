@@ -1,93 +1,71 @@
-# 🩺 AI Medical Chatbot: Modern Multimodal Diagnostic Engine
+# ai_medical_chatbot
 
-A professional-grade medical AI application built with **FastAPI** and **Groq**, featuring a high-end futuristic UI and a powerful multimodal diagnostic analyzer.
+AI-powered medical image assistant — upload an image and ask a question; the server calls vision-capable models (via the Groq API) and returns diagnostic/explanatory text.
 
----
+## How it works
 
-## 🚀 Overview
-This project transforms basic medical AI interactions into a premium user experience. It allows users to upload medical images (like dermatology photos, scans, etc.) and receive instant, high-fidelity AI-generated diagnostic analysis.
+- A FastAPI backend (`app.py`) serves a single-page frontend and exposes a POST endpoint `/upload_and_query`.
+- The frontend (`templates/index.html`) lets users upload an image and submit a text query.
+- The server base64-encodes and validates the uploaded image, then sends it along with the query to Groq vision-capable models. Responses are returned to the browser and rendered.
 
-### ✨ Key Features
-- **Futuristic UI/UX**: Built with a sleek dark-mode aesthetic, glassmorphism, and smooth Tailwind CSS animations.
-- **Multimodal AI Analysis**: Powered by **Llama 3.2 90B Vision**, providing deep clinical context from image inputs.
-- **Ultra-Low Latency**: Optimized for Groq's LPU (Language Processing Unit) architecture for near-instant responses.
-- **Future-Proofing**: Built-in fallback to **Llama 4 Scout** to ensure 100% uptime.
-- **Mobile Responsive**: Fully adaptive design for various devices and screen sizes.
+## Project structure
 
----
+- `ai_medical_chatbot/app.py` - FastAPI application; main web server and API endpoint.
+- `ai_medical_chatbot/main.py` - standalone helper for testing the image->Groq flow from the command line.
+- `ai_medical_chatbot/README.md` - this file.
+- `templates/index.html` - frontend UI for image upload and query submission.
+- `package.json` - Node package manifest present in the repo root (not required for the Python FastAPI server).
 
-## 🛠️ Technology Stack
+## Prerequisites
 
-| Layer | Technology Used |
-| :--- | :--- |
-| **Backend** | [FastAPI](https://fastapi.tiangolo.com/), Python 3.10+ |
-| **AI Engine** | [Groq API](https://groq.com/) (Llama 3.2 90B Vision) |
-| **Frontend** | HTML5, Vanilla JavaScript, [Tailwind CSS](https://tailwindcss.com/) |
-| **Styling** | Google Fonts (Montserrat, Inter), FontAwesome, Custom CSS Glassmorphism |
-| **Utilities** | Jinja2 Templates, Pillow (PIL), Requests, Python-Dotenv |
+- Python 3.9+ (or compatible)
+- A valid Groq API key saved as `GROQ_API_KEY` in your environment or a `.env` file.
 
----
+## Quick setup
 
-## ⚙️ Project Setup
+1. Create a `.env` file in the repo root (or set the environment variable):
 
-### 1. Prerequisites
-- Python 3.9 or higher
-- A [Groq API Key](https://console.groq.com/keys)
-
-### 2. Installation
-Clone the repository and install dependencies:
-```bash
-# Clone the repository
-git clone https://github.com/Vamsivardhan21840/ai_medical_chatbot.git
-cd ai_medical_chatbot
-
-# Install requirements
-pip install -r requirements.txt
+```powershell
+Set-Content .env "GROQ_API_KEY=your_api_key_here"
 ```
 
-### 3. Environment Configuration
-Create a `.env` file in the root directory:
+2. Install Python dependencies:
+
 ```bash
-# Copy the example env
-cp .env.example .env
-```
-Open `.env` and add your Groq API Key:
-```env
-GROQ_API_KEY=your_groq_api_key_here
+python -m pip install fastapi uvicorn jinja2 python-multipart pillow requests python-dotenv
 ```
 
----
+3. Run the server (option A — run the module directly):
 
-## 🚀 Running the Project
-
-Launch the development server:
-```bash
+```powershell
 python ai_medical_chatbot/app.py
 ```
-Or use Uvicorn directly:
+
+Or (option B — use uvicorn):
+
 ```bash
-uvicorn ai_medical_chatbot.app:app --reload
+uvicorn ai_medical_chatbot.app:app --reload --port 8000
 ```
 
-Once running, access the application at: **`http://127.0.0.1:8000`**
+4. Open your browser at `http://localhost:8000`, upload an image, and submit a question.
 
----
+## API
 
-## 📂 Project Structure
-```text
-├── ai_medical_chatbot/
-│   ├── app.py             # Main FastAPI Backend
-│   ├── .env               # Secrets (Not pushed to git)
-│   └── requirements.txt   # Dependencies
-├── static/
-│   └── hero.png           # Custom AI Generated Assets
-├── templates/
-│   └── index.html         # Modern Frontend Implementation
-└── README.md              # Project Documentation
-```
+- `GET /` — serves the frontend UI.
+- `POST /upload_and_query` — accepts a multipart form with fields:
+	- `image` (file)
+	- `query` (string)
 
-## 📜 License
-Distributable for educational and clinical research purposes.
+Response: JSON containing model outputs (keys for the models the app requests).
 
----
-**Disclaimer**: This tool is for educational purposes only and should not be used as a substitute for professional medical advice, diagnosis, or treatment.
+## Notes
+
+- The application expects responses in the `choices[0].message.content` shape from the Groq API; if the API updates response schemas your client code may need adjustments.
+- `package.json` exists but is not required for running the FastAPI server; remove or adapt it if you plan a Node-based backend.
+- If you want, I can add a `requirements.txt` and a `.env.example` file.
+
+## Next steps (suggested)
+
+- Add `requirements.txt` for reproducible installs.
+- Add `.env.example` (without real keys) to document environment variables.
+- Add basic tests for `process_image()` in `main.py`.
