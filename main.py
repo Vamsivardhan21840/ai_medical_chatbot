@@ -1,6 +1,7 @@
 import base64
 import requests
 import io
+from pathlib import Path
 from PIL import Image
 from dotenv import load_dotenv
 import os
@@ -11,7 +12,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Load environment variables
-load_dotenv()
+project_root = Path(__file__).resolve().parent
+load_dotenv(project_root / ".env")
 
 # Groq API details
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
@@ -68,11 +70,7 @@ def process_image(image_path, query):
             )
             return response
 
-        # Supported Groq vision models
-        vision_models = [
-            "meta-llama/llama-4-scout-17b-16e-instruct",
-            "meta-llama/llama-4-maverick-17b-128e-instruct"
-        ]
+        vision_models = ["qwen/qwen3.8-27b"]
 
         responses = {}
         for model in vision_models:

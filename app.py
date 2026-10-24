@@ -1,3 +1,4 @@
+from pathlib import Path
 from fastapi import FastAPI, File, UploadFile, Form, Request, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -9,11 +10,12 @@ from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-load_dotenv()
+project_root = Path(__file__).resolve().parent
+load_dotenv(project_root / ".env")
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory=str(project_root / "static")), name="static")
+templates = Jinja2Templates(directory=str(project_root / "templates"))
 
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -64,8 +66,7 @@ async def upload_and_query(image: UploadFile = File(...), query: str = Form(...)
                 timeout=30,
             )
 
-        # Use stable Groq vision model (90B version as 11B is decommissioned)
-        model_name = "llama-3.2-90b-vision-preview"
+        model_name = "qwen/qwen3.8-27b"
         
         responses = {"llama": ""}
 
@@ -77,20 +78,10 @@ async def upload_and_query(image: UploadFile = File(...), query: str = Form(...)
             responses["llama"] = answer or ""
         else:
             logger.error(f"Error from {model_name}: {resp.status_code} - {resp.text}")
-            # If 90B is also decommissioned, try the newer Llama 4 Scout
-            fallback_model = "meta-llama/llama-4-scout-17b-16e-instruct"
-            logger.info(f"Attempting fallback to {fallback_model}...")
-            
-            resp_fallback = make_api_request(fallback_model)
-            if resp_fallback.status_code == 200:
-                data = resp_fallback.json()
-                answer = data["choices"][0]["message"]["content"]
-                responses["llama"] = answer or ""
-            else:
-                responses["llama"] = (
-                    f"Error from {model_name}: {resp.status_code} - "
-                    f"{(resp.text or 'No details').strip()}"
-                )
+            responses["llama"] = (
+                f"Error from {model_name}: {resp.status_code} - "
+                f"{(resp.text or 'No details').strip()}"
+            )
 
         return JSONResponse(status_code=200, content=responses)
 
