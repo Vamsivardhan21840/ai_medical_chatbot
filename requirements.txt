@@ -5,4 +5,3 @@ python-multipart==0.0.9
 pillow==10.3.0
 requests==2.32.3
 python-dotenv==1.0.1
-marked==1.0.0
